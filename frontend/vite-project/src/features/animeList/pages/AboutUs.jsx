@@ -1,24 +1,29 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import image from '../../../assets/opPanel.png'
 
 const AboutUs = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl w-full space-y-8 bg-black p-10 rounded-xl shadow-lg">
-        
-        {/* Header Section */}
+    <div className="min-h-screen  bg-black flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
+      
+      <div className="mt-0 max-w-3xl w-full space-y-8 bg-black p-10 rounded-xl shadow-lg">
         <button
             onClick={() => navigate('/')}
-            className="group relative flex justify-center py-3 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+            className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-3 px-10 rounded"
           >
             Back to Home
           </button>
         <div className="text-center">
+          
           <h1 className="text-4xl font-extrabold text-pink-700 mb-2">
-            MyAnimeList Clone
+            MyAnimeList 
           </h1>
+          <img 
+          src={image} 
+          className="w-full max-w-2xl h-auto rounded-lg shadow-lg border-2"
+        />
           <p className="text-gray-500 italic text-lg">
             Your ultimate companion in the world of Anime and Manga.
           </p>

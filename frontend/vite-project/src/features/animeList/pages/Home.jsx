@@ -75,7 +75,10 @@ const Home = () => {
             alt="Hero"
             className="h-full w-full object-cover opacity-20 blur-[2px]"
           />
+          
+          
           <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/20 to-transparent" />
+
           <div className="absolute bottom-12 left-6 max-w-3xl md:left-12">
             <span className="mb-3 inline-block rounded bg-blue-600 px-3 py-1 text-xs font-bold uppercase tracking-wider">
               Trending #1
@@ -83,11 +86,16 @@ const Home = () => {
             <h1 className="mb-4 text-4xl font-black md:text-7xl leading-tight">
               {heroAnime?.title?.english || heroAnime?.title?.romaji}
             </h1>
+            
+            
             <p className="mb-8 line-clamp-3 text-lg text-gray-300 md:text-xl md:max-w-xl">
               {heroAnime?.synopsis}
             </p>
             <div className="flex gap-4">
-              <button className="rounded bg-white px-10 py-3 font-bold text-black transition hover:bg-gray-200">
+              <button
+              onClick={() =>navigate(`/anime/${heroAnime._id}`)}
+               className="rounded bg-white px-10 py-3 font-bold text-black transition hover:bg-gray-200"
+              >
                 Details
               </button>
               <button className="rounded bg-gray-500/30 px-10 py-3 font-bold text-white backdrop-blur-md transition hover:bg-gray-500/50">
@@ -100,7 +108,7 @@ const Home = () => {
       <div>
 
         <div className="flex justify-center mt-8">
-        <button className="rounded bg-gray-500/30 px-10 py-3 font-bold text-white backdrop-blur-md transition hover:bg-gray-500/50" onClick={() => navigate("/about-us")}>
+        <button className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-3 px-10 rounded" onClick={() => navigate("/about-us")}>
           About Us
         </button>
         </div>
@@ -116,6 +124,9 @@ const Home = () => {
         <AnimeRow title="Comedy" items={comedyAnime} />
         <AnimeRow title="Sci-Fi" items={sciFiAnime} />
       </div>
+      <footer className="mt-18 text-gray-400 text-sm text-center">
+        &copy; {new Date().getFullYear()} MyAnimeList Clone Project
+      </footer>
     </div>
   );
 };
