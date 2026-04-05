@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AnimeRow from "../components/AnimeRow";
 import { fetchTrendingAnime, fetchAnimeByGenre } from "../services/animeList.api";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [trending, setTrending] = useState([]);
@@ -11,6 +12,7 @@ const Home = () => {
   const [comedyAnime, setComedyAnime] = useState([]);
   const [sciFiAnime, setSciFiAnime] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const loadData = async () => {
@@ -61,7 +63,7 @@ const Home = () => {
   }
 
   // FIX: Select the first item from the array for the Hero section
-  const heroAnime = trending;
+  const [heroAnime] = trending;
 
   return (
     <div className="min-h-screen bg-gray-900 pb-12 text-white font-sans">
@@ -71,9 +73,9 @@ const Home = () => {
           <img
             src={heroAnime.posterImage}
             alt="Hero"
-            className="h-full w-full object-cover opacity-40 blur-[2px]"
+            className="h-full w-full object-cover opacity-20 blur-[2px]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/20 to-transparent" />
           <div className="absolute bottom-12 left-6 max-w-3xl md:left-12">
             <span className="mb-3 inline-block rounded bg-blue-600 px-3 py-1 text-xs font-bold uppercase tracking-wider">
               Trending #1
@@ -95,6 +97,14 @@ const Home = () => {
           </div>
         </div>
       )}
+      <div>
+
+        <div className="flex justify-center mt-8">
+        <button className="rounded bg-gray-500/30 px-10 py-3 font-bold text-white backdrop-blur-md transition hover:bg-gray-500/50" onClick={() => navigate("/about-us")}>
+          About Us
+        </button>
+        </div>
+      </div>
 
       {/* --- CONTENT SECTIONS --- */}
       <div className="mt-8 space-y-16 px-6 md:px-12">
