@@ -24,15 +24,15 @@ const AboutUs = () => {
           src={image} 
           className="w-full max-w-2xl h-auto rounded-lg shadow-lg border-2"
         />
-          <p className="text-gray-500 italic text-lg">
+          <p className="text-gray-200 italic text-lg">
             Your ultimate companion in the world of Anime and Manga.
           </p>
         </div>
 
         {/* Content Section */}
-        <div className="mt-8 space-y-6 text-gray-700 leading-relaxed">
+        <div className="mt-8 space-y-6 text-gray-400 leading-relaxed">
           <section>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Our Mission</h2>
+            <h2 className="text-2xl font-bold text-gray-500 mb-2">Our Mission</h2>
             <p>
               We aim to provide a seamless platform for fans to discover, track, and 
               review their favorite series. From the latest seasonal hits to timeless 
@@ -41,7 +41,7 @@ const AboutUs = () => {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Key Features</h2>
+            <h2 className="text-2xl font-bold text-gray-500 mb-2">Key Features</h2>
             <ul className="list-disc pl-5 space-y-2">
               <li>Comprehensive Database of Anime and Manga.</li>
               <li>Personalized lists to track your "Watching" and "Completed" series.</li>

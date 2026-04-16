@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AnimeRow from "../components/AnimeRow";
 import { fetchTrendingAnime, fetchAnimeByGenre } from "../services/animeList.api";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   const [trending, setTrending] = useState([]);
@@ -67,13 +68,17 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 pb-12 text-white font-sans">
+      <Navbar />
       {/* --- HERO SECTION --- */}
+      <div className="">
+
+      
       {heroAnime && (
-        <div className="relative h-[75vh] w-full overflow-hidden">
+        <div className="relative h-[70vh] w-full overflow-hidden ">
           <img
             src={heroAnime.posterImage}
             alt="Hero"
-            className="h-full w-full object-cover opacity-20 blur-[2px]"
+            className="h-full w-full object-cover opacity-40 blur-[2px]"
           />
           
           
@@ -105,14 +110,7 @@ const Home = () => {
           </div>
         </div>
       )}
-      <div>
-
-        <div className="flex justify-center mt-8">
-        <button className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-3 px-10 rounded" onClick={() => navigate("/about-us")}>
-          About Us
-        </button>
-        </div>
-      </div>
+      
 
       {/* --- CONTENT SECTIONS --- */}
       <div className="mt-8 space-y-16 px-6 md:px-12">
@@ -127,6 +125,7 @@ const Home = () => {
       <footer className="mt-18 text-gray-400 text-sm text-center">
         &copy; {new Date().getFullYear()} MyAnimeList Clone Project
       </footer>
+    </div>
     </div>
   );
 };
