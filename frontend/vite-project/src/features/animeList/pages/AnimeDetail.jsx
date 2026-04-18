@@ -26,7 +26,7 @@ const AnimeDetail = () => {
     <div className="min-h-screen bg-[#0b0f19] text-slate-200 font-sans selection:bg-violet-500/30">
       {/* 1. Navigation Header */}
       <nav className="p-6 max-w-7xl mx-auto">
-        <button 
+        <button
           onClick={() => navigate("/")}
           className="flex items-center gap-2 group text-gray-400 hover:text-violet-400 transition-colors"
         >
@@ -38,13 +38,13 @@ const AnimeDetail = () => {
       {/* 2. Main Content Grid */}
       <main className="max-w-7xl mx-auto px-6 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
+
           {/* LEFT COLUMN: Poster (Sticky) */}
           <div className="lg:col-span-4">
             <div className="sticky top-10">
               <div className="relative group">
-                <img 
-                  src={anime.posterImage} 
+                <img
+                  src={anime.posterImage}
                   alt={anime.title.english}
                   className="w-full rounded-2xl shadow-2xl shadow-violet-900/20 border border-white/5 object-cover"
                 />
@@ -54,7 +54,7 @@ const AnimeDetail = () => {
                   <span className="font-bold text-white">{anime.averageScore}</span>
                 </div>
               </div>
-              
+
               {/* Quick Action (Optional) */}
               <button className="w-full mt-6 bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-violet-600/20">
                 Add to Watchlist+
@@ -73,6 +73,21 @@ const AnimeDetail = () => {
                 {anime.title.japanese}
               </h2>
             </section>
+            {/* Trailer Section */}
+            {anime.trailerUrl && (
+              <section className="mt-12 space-y-4">
+                <h3 className="text-2xl font-bold text-white">Official Trailer</h3>
+                <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-white/5">
+                  <iframe
+                    src={anime.trailerUrl}
+                    title="YouTube trailer"
+                    className="absolute inset-0 w-full h-full"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </section>
+            )}
 
             {/* Meta Tags / Stats Row */}
             <div className="flex flex-wrap gap-4 items-center py-2">

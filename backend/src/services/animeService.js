@@ -22,7 +22,9 @@ const seedDatabase = async () => {
             const response = await axios.get(`https://api.jikan.moe/v4/top/anime?page=${page}`);
             const jikanData = response.data.data;
 
-            console.log(`✅ Received ${jikanData.length} items from Page ${page}`);
+            console.log("--- SINGLE ANIME DATA STRUCTURE ---");
+            console.log(JSON.stringify(jikanData, null, 2));
+            console.log("------------------------------------");
 
             const mappedData = jikanData.map(item => ({
                 title: {
@@ -32,6 +34,7 @@ const seedDatabase = async () => {
                 },
                 synopsis: item.synopsis,
                 posterImage: item.images?.jpg?.large_image_url,
+                trailerUrl: item.trailer?.embed_url,
                 type: item.type,
                 status: item.status,
                 episodes: item.episodes,
