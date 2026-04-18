@@ -45,3 +45,13 @@ export const fetchAnimeDetails=async(animeId)=>{
         throw error;
     }
 };
+// src/services/animeList.api.js
+export const searchAnime = async (query) => {
+    try {
+        const response = await api.get(`/animeList/search?q=${query}`);
+        return response.data;
+    } catch (error) {
+        console.error("Search API error:", error);
+        return [];
+    }
+};

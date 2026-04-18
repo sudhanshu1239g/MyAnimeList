@@ -4,7 +4,8 @@ const {
     getAllAnime, 
     getTrendingAnime, 
     getAnimeByGenre, 
-    getAnimeById 
+    getAnimeById,
+    searchAnime
 } = require("../controllers/animeController");
 
 // Get all anime (useful for the Home/Browse page)
@@ -15,8 +16,11 @@ router.get("/trending", getTrendingAnime);
 
 // Get anime filtered by genre slug
 router.get("/genre/:slug", getAnimeByGenre);
+router.get("/search", searchAnime);
 
 // Get a single anime's details by its ID
 router.get("/:id", getAnimeById);
+
+
 
 module.exports = router;

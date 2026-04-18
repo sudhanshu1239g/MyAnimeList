@@ -28,15 +28,6 @@ const FullList = () => {
     return (
         <main className="min-h-screen bg-gray-950 pt-10 pb-10 px-6">
             {/* Added max-w-4xl to prevent the rows from being too wide on large monitors */}
-            <div className='ml-auto'>
-                    <button
-                        className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => navigate("/")}
-                    >
-                        Back to List
-                    </button>
-
-                </div>
 
             <div className="container mx-auto max-w-5xl">
                 <h1 className="text-3xl font-bold text-white mb-8 border-l-4 border-violet-500 pl-4">

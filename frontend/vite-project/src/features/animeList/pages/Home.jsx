@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import AnimeRow from "../components/AnimeRow";
-import { fetchTrendingAnime, fetchAnimeByGenre } from "../services/animeList.api";
+import { fetchTrendingAnime, fetchAnimeByGenre,searchAnime } from "../services/animeList.api";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import SidebarSection from "../components/SidebarSection";
+import HeroCarousel from "../components/HeroCarousel";
 
 const Home = () => {
   const [trending, setTrending] = useState([]);
@@ -13,6 +15,9 @@ const Home = () => {
   const [comedyAnime, setComedyAnime] = useState([]);
   const [sciFiAnime, setSciFiAnime] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -54,6 +59,7 @@ const Home = () => {
     loadData();
   }, []);
 
+
   // Early return for loading state
   if (loading) {
     return (
@@ -62,71 +68,122 @@ const Home = () => {
       </div>
     );
   }
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+
+    setIsSearching(true);
+    const results = await searchAnime(searchQuery);
+    setSearchResults(results);
+    setIsSearching(false);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+    setSearchResults([]);
+  };
 
   // FIX: Select the first item from the array for the Hero section
   const [heroAnime] = trending;
 
   return (
     <div className="min-h-screen bg-gray-900 pb-12 text-white font-sans">
-      <Navbar />
-      {/* --- HERO SECTION --- */}
-      <div className="">
-
-      
-      {heroAnime && (
-        <div className="relative h-[70vh] w-full overflow-hidden ">
-          <img
-            src={heroAnime.posterImage}
-            alt="Hero"
-            className="h-full w-full object-cover opacity-40 blur-[2px]"
+  
+  {/* --- HERO SECTION (Full Width) --- */}
+  <HeroCarousel items={trending} />
+  <div className="mt-10 px-6 md:px-12">
+        <form onSubmit={handleSearch} className="relative max-w-2xl mx-auto group">
+          <input
+            type="text"
+            placeholder="Search for your favorite anime..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-gray-800/50 border border-white/10 px-6 py-4 rounded-full text-white focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-gray-800 transition-all placeholder:text-gray-500"
           />
-          
-          
-          <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/20 to-transparent" />
+          <button 
+            type="submit"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-violet-600 hover:bg-violet-500 text-white px-6 py-2.5 rounded-full font-bold transition-all active:scale-95"
+          >
+            {isSearching ? "..." : "Search"}
+          </button>
+        </form>
 
-          <div className="absolute bottom-12 left-6 max-w-3xl md:left-12">
-            <span className="mb-3 inline-block rounded bg-blue-600 px-3 py-1 text-xs font-bold uppercase tracking-wider">
-              Trending #1
-            </span>
-            <h1 className="mb-4 text-4xl font-black md:text-7xl leading-tight">
-              {heroAnime?.title?.english || heroAnime?.title?.romaji}
-            </h1>
-            
-            
-            <p className="mb-8 line-clamp-3 text-lg text-gray-300 md:text-xl md:max-w-xl">
-              {heroAnime?.synopsis}
-            </p>
-            <div className="flex gap-4">
-              <button
-              onClick={() =>navigate(`/anime/${heroAnime._id}`)}
-               className="rounded bg-white px-10 py-3 font-bold text-black transition hover:bg-gray-200"
-              >
-                Details
-              </button>
-              <button className="rounded bg-gray-500/30 px-10 py-3 font-bold text-white backdrop-blur-md transition hover:bg-gray-500/50">
-                + Watchlist
+        {/* --- DYNAMIC SEARCH RESULTS --- */}
+        {searchResults.length > 0 && (
+          <div className="mt-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-3xl font-black text-white">Search Results</h2>
+              <button onClick={clearSearch} className="text-gray-400 hover:text-violet-400 text-sm font-bold uppercase tracking-widest">
+                Clear Results ×
               </button>
             </div>
+            <AnimeRow title="" items={searchResults} />
+            <hr className="mt-12 border-white/5" />
           </div>
-        </div>
-      )}
-      
-
-      {/* --- CONTENT SECTIONS --- */}
-      <div className="mt-8 space-y-16 px-6 md:px-12">
-        <AnimeRow title="Trending Now" items={trending} />
-        <AnimeRow title="Action Hits" items={actionAnime} />
-        <AnimeRow title="Epic Adventures" items={adventureAnime} />
-        <AnimeRow title="Romance" items={romanceAnime} />
-        <AnimeRow title="Fantasy Worlds" items={fantasyAnime} />
-        <AnimeRow title="Comedy" items={comedyAnime} />
-        <AnimeRow title="Sci-Fi" items={sciFiAnime} />
+        )}
       </div>
-      <footer className="mt-18 text-gray-400 text-sm text-center">
-        &copy; {new Date().getFullYear()} MyAnimeList Clone Project
-      </footer>
+
+  {/* --- MAIN CONTENT GRID (75/25 Split) --- */}
+  <div className="mt-8 px-6 md:px-12 grid grid-cols-1 lg:grid-cols-4 gap-8">
+    
+    {/* LEFT PART: AnimeRows (75%) */}
+    <div className="lg:col-span-3 space-y-16">
+      <AnimeRow title="Trending Now" items={trending} />
+      <AnimeRow title="Action Hits" items={actionAnime} />
+      <AnimeRow title="Epic Adventures" items={adventureAnime} />
+      <AnimeRow title="Romance" items={romanceAnime} />
+      <AnimeRow title="Fantasy Worlds" items={fantasyAnime} />
     </div>
-    </div>
+
+    {/* RIGHT PART: Sidebar Tables (25%) */}
+    {/* RIGHT PART: Sidebar Tables (25%) */}
+<div className="lg:col-span-1">
+  <div className="sticky top-24 h-[calc(100vh-120px)] overflow-y-auto pr-2 custom-scrollbar">
+    
+    {/* Use the component for "Top Rated" */}
+    <SidebarSection 
+      title="Top Rated" 
+      items={trending?.slice(0, 5)} 
+      accentColor="border-blue-600" 
+      onNavigate={(id) => navigate(`/anime/${id}`)}
+    />
+
+    {/* Use it again for "Most Popular" */}
+    <SidebarSection 
+      title="Most Popular" 
+      items={trending?.slice(5, 10)} 
+      accentColor="border-purple-600" 
+      onNavigate={(id) => navigate(`/anime/${id}`)}
+    />
+
+    {/* You can even add a third one easily! */}
+    <SidebarSection 
+      title="Action Gems" 
+      items={actionAnime?.slice(0, 5)} 
+      accentColor="border-orange-500" 
+      onNavigate={(id) => navigate(`/anime/${id}`)}
+    />
+    <SidebarSection 
+      title="Adventures Gems" 
+      items={adventureAnime?.slice(0, 5)} 
+      accentColor="border-green-500" 
+      onNavigate={(id) => navigate(`/anime/${id}`)}
+    />
+    <SidebarSection 
+      title="Romance Gems" 
+      items={romanceAnime?.slice(0, 5)} 
+      accentColor="border-pink-500" 
+      onNavigate={(id) => navigate(`/anime/${id}`)}
+    />
+
+  </div>
+</div>
+  </div>
+
+  <footer className="mt-28 border-t border-white/5 py-10 text-gray-400 text-sm text-center">
+    &copy; {new Date().getFullYear()} MyAnimeList Clone Project
+  </footer>
+</div>
   );
 };
 

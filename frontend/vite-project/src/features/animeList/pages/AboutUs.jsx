@@ -9,12 +9,7 @@ const AboutUs = () => {
     <div className="min-h-screen  bg-black flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
       
       <div className="mt-0 max-w-3xl w-full space-y-8 bg-black p-10 rounded-xl shadow-lg">
-        <button
-            onClick={() => navigate('/')}
-            className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-3 px-10 rounded"
-          >
-            Back to Home
-          </button>
+        
         <div className="text-center">
           
           <h1 className="text-4xl font-extrabold text-pink-700 mb-2">
@@ -22,7 +17,7 @@ const AboutUs = () => {
           </h1>
           <img 
           src={image} 
-          className="w-full max-w-2xl h-auto rounded-lg shadow-lg border-2"
+          className="w-full max-w-2xl h-auto rounded-lg shadow-lg"
         />
           <p className="text-gray-200 italic text-lg">
             Your ultimate companion in the world of Anime and Manga.

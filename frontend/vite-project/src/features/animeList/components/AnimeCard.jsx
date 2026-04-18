@@ -12,7 +12,7 @@ const AnimeCard = ({ anime }) => {
     onClick={() => navigate(`/anime/${anime._id}`)}
 
      className="group relative cursor-pointer overflow-hidden rounded-xl bg-gray-800 transition-all duration-500 hover:scale-105 hover:shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-    <div className="relative aspect-2/3 overflow-hidden">
+    <div className="relative aspect-3/3 overflow-hidden">
       <img 
         src={anime.posterImage}
         alt={anime.title.english}
@@ -22,7 +22,7 @@ const AnimeCard = ({ anime }) => {
       <div className="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black via-black/40 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <div className="flex items-center justify-between text-sm font-bold text-yellow-400 mb-1">
           <span>⭐ {anime.averageScore}</span>
-          <span className="rounded bg-blue-600 px-1.5 py-0.5 text-[10px] text-white uppercase">
+          <span className="rounded bg-blue-600 px-0.5 py-0.5 text-[9px] text-white uppercase">
             {anime.type}
           </span>
         </div>
@@ -33,8 +33,8 @@ const AnimeCard = ({ anime }) => {
         {anime.title.english || anime.title.romaji}
       </h3>
       <div className="flex items-center justify-between">
-        <span className="text-[11px] text-gray-500">{anime.episodes} eps</span>
-        <span className="text-[11px] font-medium text-gray-400 uppercase tracking-tighter">
+        <span className="text-[9px] text-gray-500">{anime.episodes} eps</span>
+        <span className="text-[9px] font-medium text-gray-400 uppercase tracking-tighter">
           {anime.status}
         </span>
       </div>
