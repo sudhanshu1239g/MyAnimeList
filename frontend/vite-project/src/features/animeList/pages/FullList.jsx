@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchAnimeList } from '../services/animeList.api';
 import { useNavigate } from "react-router-dom";
+import kumi from '../../../assets/kumi.png'
 
 const FullList = () => {
     const [animeData, setAnimeData] = useState([]);
@@ -33,7 +34,7 @@ const FullList = () => {
                 <h1 className="text-3xl font-bold text-white mb-8 border-l-4 border-violet-500 pl-4">
                     Top Anime Series
                 </h1>
-                
+
 
                 {/* Changed to grid-cols-1 for 1 anime per row */}
                 <div className="grid grid-cols-1 gap-4">
@@ -88,6 +89,13 @@ const FullList = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+                {/* 🌌 Dynamic Visual Tail Section */}
+                <div className="relative mt-16 h-64 w-full overflow-hidden rounded-2xl border border-gray-800 bg-gray-900">
+                    <img src={kumi} alt="Kumi" />
+                    <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-3xl font-bold text-center">
+                        Still scrolling?
+                    </h1>
                 </div>
             </div>
         </main>

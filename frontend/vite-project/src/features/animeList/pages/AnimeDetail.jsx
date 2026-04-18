@@ -21,6 +21,43 @@ const AnimeDetail = () => {
   }, [id]);
 
   if (!anime) return <div className="bg-gray-900 h-screen text-white p-10">Loading details...</div>;
+  const addToWatchlist = async (animeId) => {
+  const token = localStorage.getItem("token"); 
+
+  // 1. Safety check: Don't even hit the backend if there's no token
+  if (!token || token === "undefined" || token === "null") {
+    alert("Please login first to add anime to your watchlist! 🎌");
+    navigate("/login"); // Optional: send them to login
+    return;
+  }
+
+  try {
+    // 2. Log exactly what we are sending for debugging
+    console.log("Sending request with token:", token);
+
+    const res = await axios.post(
+      "http://localhost:8000/api/animeList/watchlist/add",
+      { animeId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    
+    alert("Added to your watchlist! 🍿");
+    console.log("Watchlist updated:", res.data);
+  } catch (err) {
+    console.error("Could not add to watchlist", err);
+    
+    // 3. Handle specific 401 error (Token expired or invalid)
+    if (err.response?.status === 401) {
+      alert("Your session has expired. Please login again.");
+      localStorage.removeItem("token"); // Clear the bad token
+      navigate("/login");
+    }
+  }
+};
 
   return (
     <div className="min-h-screen bg-[#0b0f19] text-slate-200 font-sans selection:bg-violet-500/30">
@@ -56,7 +93,7 @@ const AnimeDetail = () => {
               </div>
 
               {/* Quick Action (Optional) */}
-              <button className="w-full mt-6 bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-violet-600/20">
+              <button onClick={()=>addToWatchlist(anime._id)} className="w-full mt-6 bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-violet-600/20">
                 Add to Watchlist+
               </button>
             </div>

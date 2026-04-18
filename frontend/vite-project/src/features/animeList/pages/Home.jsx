@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import AnimeRow from "../components/AnimeRow";
-import { fetchTrendingAnime, fetchAnimeByGenre,searchAnime } from "../services/animeList.api";
+import { fetchTrendingAnime, fetchAnimeByGenre, searchAnime } from "../services/animeList.api";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import SidebarSection from "../components/SidebarSection";
 import HeroCarousel from "../components/HeroCarousel";
+import kumi from '../../../assets/kumi.png'
 
 const Home = () => {
   const [trending, setTrending] = useState([]);
@@ -26,12 +27,12 @@ const Home = () => {
         setLoading(true);
         // Fire all requests in parallel
         const [
-          trendingData, 
-          actionData, 
-          adventureData, 
-          romanceData, 
-          fantasyData, 
-          comedyData, 
+          trendingData,
+          actionData,
+          adventureData,
+          romanceData,
+          fantasyData,
+          comedyData,
           sciFiData
         ] = await Promise.all([
           fetchTrendingAnime(),
@@ -88,10 +89,10 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 pb-12 text-white font-sans">
-  
-  {/* --- HERO SECTION (Full Width) --- */}
-  <HeroCarousel items={trending} />
-  <div className="mt-10 px-6 md:px-12">
+
+      {/* --- HERO SECTION (Full Width) --- */}
+      <HeroCarousel items={trending} />
+      <div className="mt-10 px-6 md:px-12">
         <form onSubmit={handleSearch} className="relative max-w-2xl mx-auto group">
           <input
             type="text"
@@ -100,7 +101,7 @@ const Home = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-gray-800/50 border border-white/10 px-6 py-4 rounded-full text-white focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-gray-800 transition-all placeholder:text-gray-500"
           />
-          <button 
+          <button
             type="submit"
             className="absolute right-2 top-1/2 -translate-y-1/2 bg-violet-600 hover:bg-violet-500 text-white px-6 py-2.5 rounded-full font-bold transition-all active:scale-95"
           >
@@ -123,67 +124,74 @@ const Home = () => {
         )}
       </div>
 
-  {/* --- MAIN CONTENT GRID (75/25 Split) --- */}
-  <div className="mt-8 px-6 md:px-12 grid grid-cols-1 lg:grid-cols-4 gap-8">
-    
-    {/* LEFT PART: AnimeRows (75%) */}
-    <div className="lg:col-span-3 space-y-16">
-      <AnimeRow title="Trending Now" items={trending} />
-      <AnimeRow title="Action Hits" items={actionAnime} />
-      <AnimeRow title="Epic Adventures" items={adventureAnime} />
-      <AnimeRow title="Romance" items={romanceAnime} />
-      <AnimeRow title="Fantasy Worlds" items={fantasyAnime} />
+      {/* --- MAIN CONTENT GRID (75/25 Split) --- */}
+      <div className="mt-8 px-6 md:px-12 grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+        {/* LEFT PART: AnimeRows (75%) */}
+        <div className="lg:col-span-3 space-y-16">
+          <AnimeRow title="Trending Now" items={trending} />
+          <AnimeRow title="Action Hits" items={actionAnime} />
+          <AnimeRow title="Epic Adventures" items={adventureAnime} />
+          <AnimeRow title="Romance" items={romanceAnime} />
+          <AnimeRow title="Fantasy Worlds" items={fantasyAnime} />
+        </div>
+
+        {/* RIGHT PART: Sidebar Tables (25%) */}
+        {/* RIGHT PART: Sidebar Tables (25%) */}
+        <div className="lg:col-span-1">
+          <div className="sticky top-24 h-[calc(100vh-120px)] overflow-y-auto pr-2 custom-scrollbar">
+
+            {/* Use the component for "Top Rated" */}
+            <SidebarSection
+              title="Top Rated"
+              items={trending?.slice(0, 5)}
+              accentColor="border-blue-600"
+              onNavigate={(id) => navigate(`/anime/${id}`)}
+            />
+
+            {/* Use it again for "Most Popular" */}
+            <SidebarSection
+              title="Most Popular"
+              items={trending?.slice(5, 10)}
+              accentColor="border-purple-600"
+              onNavigate={(id) => navigate(`/anime/${id}`)}
+            />
+
+            {/* You can even add a third one easily! */}
+            <SidebarSection
+              title="Action Gems"
+              items={actionAnime?.slice(0, 5)}
+              accentColor="border-orange-500"
+              onNavigate={(id) => navigate(`/anime/${id}`)}
+            />
+            <SidebarSection
+              title="Adventures Gems"
+              items={adventureAnime?.slice(0, 5)}
+              accentColor="border-green-500"
+              onNavigate={(id) => navigate(`/anime/${id}`)}
+            />
+            <SidebarSection
+              title="Romance Gems"
+              items={romanceAnime?.slice(0, 5)}
+              accentColor="border-pink-500"
+              onNavigate={(id) => navigate(`/anime/${id}`)}
+            />
+
+          </div>
+        </div>
+      </div>
+      
+
+
+      {/* --- FOOTER --- */}
+      <div className="relative mt-16 h-64 w-full overflow-hidden rounded-2xl border border-gray-800 bg-gray-900">
+                          <img src={kumi} alt="Kumi"  />
+                          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-3xl font-bold text-center">
+                              Keep Visiting 👉 ❤️ ...
+                          </h1>
+                      </div>
+
     </div>
-
-    {/* RIGHT PART: Sidebar Tables (25%) */}
-    {/* RIGHT PART: Sidebar Tables (25%) */}
-<div className="lg:col-span-1">
-  <div className="sticky top-24 h-[calc(100vh-120px)] overflow-y-auto pr-2 custom-scrollbar">
-    
-    {/* Use the component for "Top Rated" */}
-    <SidebarSection 
-      title="Top Rated" 
-      items={trending?.slice(0, 5)} 
-      accentColor="border-blue-600" 
-      onNavigate={(id) => navigate(`/anime/${id}`)}
-    />
-
-    {/* Use it again for "Most Popular" */}
-    <SidebarSection 
-      title="Most Popular" 
-      items={trending?.slice(5, 10)} 
-      accentColor="border-purple-600" 
-      onNavigate={(id) => navigate(`/anime/${id}`)}
-    />
-
-    {/* You can even add a third one easily! */}
-    <SidebarSection 
-      title="Action Gems" 
-      items={actionAnime?.slice(0, 5)} 
-      accentColor="border-orange-500" 
-      onNavigate={(id) => navigate(`/anime/${id}`)}
-    />
-    <SidebarSection 
-      title="Adventures Gems" 
-      items={adventureAnime?.slice(0, 5)} 
-      accentColor="border-green-500" 
-      onNavigate={(id) => navigate(`/anime/${id}`)}
-    />
-    <SidebarSection 
-      title="Romance Gems" 
-      items={romanceAnime?.slice(0, 5)} 
-      accentColor="border-pink-500" 
-      onNavigate={(id) => navigate(`/anime/${id}`)}
-    />
-
-  </div>
-</div>
-  </div>
-
-  <footer className="mt-28 border-t border-white/5 py-10 text-gray-400 text-sm text-center">
-    &copy; {new Date().getFullYear()} MyAnimeList Clone Project
-  </footer>
-</div>
   );
 };
 

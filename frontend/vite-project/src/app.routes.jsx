@@ -5,6 +5,10 @@ import AboutUs from "./features/animeList/pages/AboutUs";
 import AnimeDetail from './features/animeList/pages/AnimeDetail';
 import FullList from './features/animeList/pages/FullList';
 import NavLayout from './layouts/NavLayout';
+import Login from './features/auth/LoginPage';
+import Register from './features/auth/Register';
+import Watchlist from './features/animeList/pages/Watchlist';
+import ProtectedRoute from './ProtectedRoute';
 
 
 export const router = createBrowserRouter([
@@ -29,7 +33,23 @@ export const router = createBrowserRouter([
             {
                 path: "full-list",
                 element: <FullList />
-            }
+            },
+            {
+                path: "login",
+                element: <Login />
+            },
+            {
+                path: "register",
+                element: <Register />
+            },
+            {
+                path: "watchlist",
+                element: (
+                    <ProtectedRoute>
+                        <Watchlist />
+                    </ProtectedRoute>
+                )
+            },
         ]
     }
 ]);
