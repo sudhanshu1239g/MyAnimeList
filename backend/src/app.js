@@ -3,7 +3,9 @@ const cors = require("cors")
 const app=express();
 
 app.use(cors({
-    origin: "https://my-anime-list-seven.vercel.app", // Your Vite frontend URL
+    origin: ["https://my-anime-list-seven.vercel.app",
+        "http://localhost:5173"
+    ], // Your Vite frontend URL
     credentials: true                // Allow cookies/headers
 }));
 
