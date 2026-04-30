@@ -7,7 +7,7 @@ const authRoutes=require("./routes/authRoutes");
 const app=express();
 
 app.use(cors({
-    origin: "http://localhost:5173", // Your Vite frontend URL
+    origin: "https://my-anime-list-seven.vercel.app", // Your Vite frontend URL
     credentials: true                // Allow cookies/headers
 }));
 app.use(express.json());
