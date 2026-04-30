@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import piclogin from '../../assets/imglogin.png'
+import luffy from '../../assets/luffy.gif'
 
 import axios from 'axios';
 
@@ -32,9 +33,9 @@ const LoginPage = () => {
   <div className="flex w-full max-w-5xl rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-gray-900/40 backdrop-blur-xl">
     
     {/* LEFT SIDE - IMAGE */}
-    <div className="w-1/2 hidden md:flex items-center justify-center bg-linear-to-br bg-gray-900/40 p-6">
+    <div className="w-1/5 mr-20 hidden md:flex items-center justify-center bg-linear-to-br bg-gray-900/40 p-6">
       <img 
-        src={piclogin} 
+        src={luffy} 
         alt="login visual" 
         className="w-full h-full object-contain drop-shadow-2xl"
       />
