@@ -1,5 +1,6 @@
 const express = require("express")
 const cors = require("cors")
+const app=express();
 
 app.use(cors({
     origin: "https://my-anime-list-seven.vercel.app", // Your Vite frontend URL
@@ -9,7 +10,7 @@ app.use(cors({
 const animeRoutes = require("./routes/animeRoutes");
 const authRoutes=require("./routes/authRoutes");
 
-const app=express();
+
 
 
 app.use(express.json());
