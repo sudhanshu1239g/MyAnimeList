@@ -3,6 +3,11 @@ import { AuthContext } from '../../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const api = axios.create({
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+    withCredentials: true,
+})
+
 const Register = () => {
   const [formData, setFormData] = useState({ 
     username: '', 
@@ -22,7 +27,7 @@ const Register = () => {
     }
 
     try {
-      const res = await axios.post('https://myanimelist-cd1p.onrender.com/api/auth/register', {
+      const res = await api.post('/auth/register', {
         username: formData.username,
         email: formData.email,
         password: formData.password

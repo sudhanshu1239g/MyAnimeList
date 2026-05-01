@@ -5,6 +5,10 @@ import piclogin from '../../assets/imglogin.png'
 import luffy from '../../assets/luffy.gif'
 
 import axios from 'axios';
+const api = axios.create({
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+    withCredentials: true,
+})
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -14,7 +18,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://myanimelist-cd1p.onrender.com/api/auth/login', formData);
+      const res = await api.post('/auth/login', formData);
       
       // Store in Context and LocalStorage
       localStorage.setItem('token', res.data.token);
