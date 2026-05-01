@@ -3,6 +3,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const api = axios.create({
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+    withCredentials: true
+})
+
 const AnimeDetail = () => {
   const { id } = useParams(); // Grabs the 'id' from the URL
   const [anime, setAnime] = useState(null);
@@ -11,7 +16,7 @@ const AnimeDetail = () => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/animeList/${id}`);
+        const response = await api.get(`/api/animeList/${id}`);
         setAnime(response.data);
       } catch (err) {
         console.error("Error fetching anime details:", err);
