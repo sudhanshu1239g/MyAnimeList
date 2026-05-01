@@ -6,6 +6,11 @@ import imgWatch from '../../../assets/imgWatch.jpg'
 import girlie from '../../../assets/girlie.png'
 import kumi from '../../../assets/kumi.png'
 
+const api = axios.create({
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+    withCredentials: true
+})
+
 const Watchlist = () => {
     const [list, setList] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -15,7 +20,7 @@ const Watchlist = () => {
     useEffect(() => {
         const fetchWatchlist = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/api/auth/watchlist', {
+                const res = await api.get('/api/auth/watchlist', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setList(res.data);
@@ -31,7 +36,7 @@ const Watchlist = () => {
     const handleRemove = async (e, animeId) => {
         e.stopPropagation(); // Prevent navigating to detail page
         try {
-            await axios.delete(`http://localhost:8000/api/auth/watchlist/${animeId}`, {
+            await api.delete(`/api/auth/watchlist/${animeId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setList(list.filter(item => item._id !== animeId));

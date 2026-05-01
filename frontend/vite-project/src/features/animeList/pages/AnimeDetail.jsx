@@ -41,7 +41,7 @@ const AnimeDetail = () => {
     console.log("Sending request with token:", token);
 
     const res = await axios.post(
-      "http://localhost:8000/api/animeList/watchlist/add",
+      "https://myanimelist-cd1p.onrender.com/api/animeList/watchlist/add",
       { animeId },
       {
         headers: {
